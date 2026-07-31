@@ -12,10 +12,13 @@
 ## 🛠️ Запуск проекта
 
 ### 1. Поднятие PostgreSQL с pgvector
-```bash
-docker run -d --name rag_postgres \
-  -e POSTGRES_USER=user \
-  -e POSTGRES_PASSWORD=password \
-  -e POSTGRES_DB=rag_db \
-  -p 5432:5432 \
-  pgvector/pgvector:pg16
+docker run -d --name rag_postgres -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=rag_db -p 5432:5432 pgvector/pgvector:pg16
+
+### 2. Установка зависимостей и запуск
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
+
+## 📡 API Эндпоинты
+- `GET /health` — Проверка статуса сервиса и подключения к БД.
+- `POST /api/v1/documents` — Индексация документов и запись векторов в pgvector.
+- `POST /api/v1/rag/query` — Выполнение семантического RAG-поиска и генерация ответа.
